@@ -1,4 +1,4 @@
-from phi import Agent, Task, Tool  # Importing PHI instead of CrewAI
+from phi.agentimport Agent, Task, Tool  # Importing PHI instead of CrewAI
 from langchain_maistrai import ChatMistralAI
 from dotenv import load_dotenv
 import os
@@ -11,41 +11,53 @@ class TripAgents:
     
     def citySelectorAgent(self):
         agent = Agent(
-            role="City Selection Expert",
-            goal="Identify the best cities to visit based on user preferences",
-            backstory="An expert travel guide with extensive knowledge about world cities, including their attractions, culture, history, heritage, food, and festivals.",
-            llm=self.llm,
-            verbose=True
+            description="You are an expert travel guide specializing in city selection for travelers.",
+            instructions=[
+                "Analyze user preferences and recommend the most suitable cities.",
+                "Consider factors like attractions, culture, food, and festivals."
+            ],
+            markdown=True,
+            debug_mode=True,
+            llm=self.llm
         )
         return agent
     
     def localExpertAgent(self):
         agent = Agent(
-            role="Local Destination Expert",
-            goal="Provide information about local attractions, culture, history, heritage, food, and festivals.",
-            backstory="A local guide with first-hand knowledge about the city and its unique highlights.",
-            llm=self.llm,
-            verbose=True
+            description="You are a local destination expert providing valuable insights about cities.",
+            instructions=[
+                "Share in-depth knowledge about local attractions, history, culture, food, and festivals.",
+                "Provide tips for exploring the city like a local."
+            ],
+            markdown=True,
+            debug_mode=True,
+            llm=self.llm
         )
         return agent
 
     def budgetAgent(self):
         agent = Agent(
-            role="Budget Planner",
-            goal="Design a trip that stays within the given budget, maximizing enjoyment and ensuring the best experience.",
-            backstory="A financial expert experienced in budgeting and planning trips, ensuring the user's budget is respected while creating great travel experiences.",
-            llm=self.llm,
-            verbose=True
+            description="You are a financial expert who plans trips within a given budget.",
+            instructions=[
+                "Optimize travel experiences while staying within the user's budget.",
+                "Consider expenses for accommodation, food, transport, and activities."
+            ],
+            markdown=True,
+            debug_mode=True,
+            llm=self.llm
         )
         return agent
     
     def tripPlannerAgent(self):
         agent = Agent(
-            role="Trip Planner",
-            goal="Design personalized travel itineraries based on user preferences, ensuring a seamless and enjoyable experience.",
-            backstory="A seasoned travel expert with deep knowledge of destinations, activities, and cultures. Skilled in crafting itineraries tailored to user interests, goals, and constraints.",
-            llm=self.llm,
-            verbose=True
+            description="You are a seasoned travel planner designing tailored itineraries.",
+            instructions=[
+                "Create personalized itineraries based on user preferences.",
+                "Ensure seamless travel experiences while covering key attractions, meals, and transportation."
+            ],
+            markdown=True,
+            debug_mode=True,
+            llm=self.llm
         )
         return agent
 
